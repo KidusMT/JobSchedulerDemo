@@ -9,6 +9,10 @@ public class JobSchedulerService extends JobService {
 
     private Handler mJobHandler;
 
+    public JobSchedulerService(){
+
+    }
+
     // passing the Handler from the activity it being called
     // since the jobScheduler should run on a different thread than the main
     // the Handler required to run the JobService is passed through the constructor
