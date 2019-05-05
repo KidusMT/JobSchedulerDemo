@@ -10,3 +10,6 @@ watch this:
 - https://www.youtube.com/watch?v=N72ksDKrX6c
 and read this:
 - https://medium.com/mindorks/you-have-to-know-more-about-doze-mode-3d80f016f8ad
+
+### Firebase Dispatcher
+execute our job in JobScheduler for devices with API level 21+ and will switch our implementation to Alarm Manager for devices with lower API level than 21. That kinda makes it very cool feature.
