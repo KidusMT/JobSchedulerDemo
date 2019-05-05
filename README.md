@@ -13,3 +13,5 @@ and read this:
 
 ### Firebase Dispatcher
 execute our job in JobScheduler for devices with API level 21+ and will switch our implementation to Alarm Manager for devices with lower API level than 21. That kinda makes it very cool feature.
+
+- https://medium.com/wiselteach/firebase-jobdispatcher-androidmonk-3e6d729ed9ce
