@@ -1,6 +1,7 @@
 package com.kmt.jobschedulerdemo;
 
 import android.app.job.JobInfo;
+//import android.app.job.JobScheduler;
 import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
@@ -21,7 +22,7 @@ import com.firebase.jobdispatcher.Trigger;
 public class MainActivity extends AppCompatActivity {
 
     public static final String TAG = "my_firebase_job_dispatcher";
-    JobScheduler mJobScheduler;
+//    JobScheduler mJobScheduler;
     FirebaseJobDispatcher jobDispatcher;
 
     @Override
@@ -69,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
                 .setService(MyJobService.class)
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
-                .setTrigger(Trigger.executionWindow(10, 15))
                 .setTag(TAG)
+                .setTrigger(Trigger.executionWindow(10, 15))
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setReplaceCurrent(false)
                 .setConstraints(Constraint.ON_ANY_NETWORK)

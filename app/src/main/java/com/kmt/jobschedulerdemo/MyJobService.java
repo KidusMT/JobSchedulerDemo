@@ -2,6 +2,7 @@ package com.kmt.jobschedulerdemo;
 
 import android.annotation.SuppressLint;
 import android.os.AsyncTask;
+import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -22,9 +23,12 @@ public class MyJobService extends JobService {
             @Override
             protected void onPostExecute(String s) {
                 Toast.makeText(getApplicationContext(), s, Toast.LENGTH_SHORT).show();
+                Log.e("--->MyBackgroundTask", s);
                 jobFinished(job, false);
             }
         };
+
+        myBackgroundTask.execute();
         return true;
     }
 
