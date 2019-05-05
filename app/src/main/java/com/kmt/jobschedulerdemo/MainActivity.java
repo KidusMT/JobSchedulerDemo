@@ -71,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
                 .setLifetime(Lifetime.FOREVER)
                 .setRecurring(true)
                 .setTag(TAG)
-                .setTrigger(Trigger.executionWindow(10, 15))
+                .setTrigger(Trigger.executionWindow(10, 10))
                 .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
                 .setReplaceCurrent(false)
                 .setConstraints(Constraint.ON_ANY_NETWORK)
