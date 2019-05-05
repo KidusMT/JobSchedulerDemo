@@ -5,6 +5,7 @@ import android.app.job.JobScheduler;
 import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -45,5 +46,11 @@ public class MainActivity extends AppCompatActivity {
 
         mJobScheduler.cancel(1);// If our application requires that we stop a specific job
         mJobScheduler.cancelAll();// cancels all jobs
+    }
+
+    public void startJob(View view) {
+    }
+
+    public void stopJob(View view) {
     }
 }
