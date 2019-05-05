@@ -23,6 +23,9 @@ execute our job in JobScheduler for devices with API level 21+ and will switch o
 - https://medium.com/wiselteach/firebase-jobdispatcher-androidmonk-3e6d729ed9ce
 - https://codelabs.developers.google.com/codelabs/android-migrate-to-jobs/index.html?index=..%2F..index#10
 
+### Alarm Manager 
+- https://droidmentor.com/schedule-notifications-using-alarmmanager/
+
 ### Android Jetpack: Introducing WorkManager
 The Android WorkManager library makes it easy to schedule deferrable tasks that are expected to run even if the app exits or the device restarts. Need to sync photos with a server, or do a daily cache clean-up? Then WorkManager is the library for you! Because WorkManager is compatible with API 14+ and follows system health best practices, it is the recommended approach for handling most background execution tasks on Android.
 
