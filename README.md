@@ -33,4 +33,4 @@ WorkManager supports:
 -Customized threading strategy
 
 Video resource about WorkManager
-https://www.youtube.com/watch?v=pe_yqM16hPQ
+- https://www.youtube.com/watch?v=pe_yqM16hPQ
