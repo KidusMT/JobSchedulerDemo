@@ -6,6 +6,7 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -29,16 +30,16 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // getting an instance of the system service JOB_SCHEDULER_SERVICE
-        mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
+//        mJobScheduler = (JobScheduler) getSystemService(Context.JOB_SCHEDULER_SERVICE);
 
 
         // To create our scheduled task, we can use the JobInfo.Builder
         // The parameters that are passed into the builder are :
         // (1) identifier of the job that we will run
         // (2) component name of the service that we will use with the JobScheduler API
-        JobInfo.Builder builder = new JobInfo.Builder(1,
-                new ComponentName(getPackageName(),
-                        JobSchedulerService.class.getName()));
+//        JobInfo.Builder builder = new JobInfo.Builder(1,
+//                new ComponentName(getPackageName(),
+//                        JobSchedulerService.class.getName()));
 
         // allows us to set many different options for controlling when our job will execute.
         // builder.setPeriodic( 3000 ); --> like this
@@ -49,16 +50,15 @@ public class MainActivity extends AppCompatActivity {
         // builder.setRequiresCharging(boolean requiresCharging) --> Using this function will tell our application that the job should not start until the device has started charging.
         // builder.setRequiresDeviceIdle(boolean requiresDeviceIdle) --> This tells our job to not start unless the user is not using their device and they have not used it for some time.
 
-        if (mJobScheduler.schedule(builder.build()) <= 0) {
+//        if (mJobScheduler.schedule(builder.build()) <= 0) {
             //If something goes wrong
-        }
+//        }
 
 
-        mJobScheduler.cancel(1);// If our application requires that we stop a specific job
-        mJobScheduler.cancelAll();// cancels all jobs
+//        mJobScheduler.cancel(1);// If our application requires that we stop a specific job
+//        mJobScheduler.cancelAll();// cancels all jobs
 
         jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
-
 
     }
 
@@ -77,9 +77,11 @@ public class MainActivity extends AppCompatActivity {
                 .build();
 
         jobDispatcher.mustSchedule(job);
+        Toast.makeText(this, "Job Scheduled", Toast.LENGTH_SHORT).show();
     }
 
     public void stopJob(View view) {
         jobDispatcher.cancel(TAG);//for a specific tag
+        Toast.makeText(this, "Job Canceled", Toast.LENGTH_SHORT).show();
     }
 }
