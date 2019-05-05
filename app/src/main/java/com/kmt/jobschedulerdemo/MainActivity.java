@@ -9,9 +9,19 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.firebase.jobdispatcher.Constraint;
+import com.firebase.jobdispatcher.FirebaseJobDispatcher;
+import com.firebase.jobdispatcher.GooglePlayDriver;
+import com.firebase.jobdispatcher.Job;
+import com.firebase.jobdispatcher.Lifetime;
+import com.firebase.jobdispatcher.RetryStrategy;
+import com.firebase.jobdispatcher.Trigger;
+
 public class MainActivity extends AppCompatActivity {
 
+    public static final String TAG = "my_firebase_job_dispatcher";
     JobScheduler mJobScheduler;
+    FirebaseJobDispatcher jobDispatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,11 +56,30 @@ public class MainActivity extends AppCompatActivity {
 
         mJobScheduler.cancel(1);// If our application requires that we stop a specific job
         mJobScheduler.cancelAll();// cancels all jobs
+
+        jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+
+
     }
 
+
     public void startJob(View view) {
+
+        Job job = jobDispatcher.newJobBuilder()
+                .setService(MyJobService.class)
+                .setLifetime(Lifetime.FOREVER)
+                .setRecurring(true)
+                .setTrigger(Trigger.executionWindow(10, 15))
+                .setTag(TAG)
+                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+                .setReplaceCurrent(false)
+                .setConstraints(Constraint.ON_ANY_NETWORK)
+                .build();
+
+        jobDispatcher.mustSchedule(job);
     }
 
     public void stopJob(View view) {
+        jobDispatcher.cancel(TAG);//for a specific tag
     }
 }
