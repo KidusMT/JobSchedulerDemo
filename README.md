@@ -39,5 +39,9 @@ WorkManager supports:
 Video resource about WorkManager
 - https://www.youtube.com/watch?v=pe_yqM16hPQ
 
-Codelab for WorkManager
+Codelab for WorkManager and other resources
 - https://codelabs.developers.google.com/codelabs/android-workmanager/index.html?index=../..index#11
+- https://medium.com/@kevalpatel2106/exploring-jetpack-scheduling-tasks-with-work-manager-fba20d7c69bf
+- https://medium.com/@balakrishnan.750/android-downloader-bulk-downloader-f23452b160fd
+- https://droidmentor.com/schedule-notifications-using-alarmmanager/
+- https://medium.com/androiddevelopers/workmanager-basics-beba51e94048
