@@ -1,5 +1,6 @@
 package com.kmt.jobschedulerdemo;
 
+import android.app.Activity;
 import android.app.job.JobInfo;
 //import android.app.job.JobScheduler;
 import android.app.job.JobScheduler;
@@ -10,6 +11,10 @@ import android.view.View;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.work.ExistingWorkPolicy;
+import androidx.work.OneTimeWorkRequest;
+import androidx.work.WorkContinuation;
+import androidx.work.WorkManager;
 
 import com.firebase.jobdispatcher.Constraint;
 import com.firebase.jobdispatcher.FirebaseJobDispatcher;
@@ -19,11 +24,19 @@ import com.firebase.jobdispatcher.Lifetime;
 import com.firebase.jobdispatcher.RetryStrategy;
 import com.firebase.jobdispatcher.Trigger;
 
+import static com.kmt.jobschedulerdemo.Constants.IMAGE_MANIPULATION_WORK_NAME;
+
 public class MainActivity extends AppCompatActivity {
 
-    public static final String TAG = "my_firebase_job_dispatcher";
+//    public static final String TAG = "my_firebase_job_dispatcher";
 //    JobScheduler mJobScheduler;
-    FirebaseJobDispatcher jobDispatcher;
+//    FirebaseJobDispatcher jobDispatcher;
+
+    private WorkManager mWorkManager;
+
+    private static final String TAG = MainActivity.class.getSimpleName();
+
+    public static Activity mActivity;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,30 +72,47 @@ public class MainActivity extends AppCompatActivity {
 //        mJobScheduler.cancel(1);// If our application requires that we stop a specific job
 //        mJobScheduler.cancelAll();// cancels all jobs
 
-        jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+//        jobDispatcher = new FirebaseJobDispatcher(new GooglePlayDriver(this));
+
+        mWorkManager = WorkManager.getInstance();
+
+        mActivity = this;
 
     }
 
 
     public void startJob(View view) {
 
-        Job job = jobDispatcher.newJobBuilder()
-                .setService(MyJobService.class)
-                .setLifetime(Lifetime.FOREVER)
-                .setRecurring(true)
-                .setTag(TAG)
-                .setTrigger(Trigger.executionWindow(10, 10))
-                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
-                .setReplaceCurrent(false)
-                .setConstraints(Constraint.ON_ANY_NETWORK)
-                .build();
+        WorkerUtils.makeStatusNotification( "started the job", this);
+        WorkContinuation continuation = mWorkManager
+                .beginWith(OneTimeWorkRequest.from(ToastWorker.class));
 
-        jobDispatcher.mustSchedule(job);
-        Toast.makeText(this, "Job Scheduled", Toast.LENGTH_SHORT).show();
+        continuation.enqueue();
+
+//        Job job = jobDispatcher.newJobBuilder()
+//                .setService(MyJobService.class)
+//                .setLifetime(Lifetime.FOREVER)
+//                .setRecurring(true)
+//                .setTag(TAG)
+//                .setTrigger(Trigger.executionWindow(10, 10))
+//                .setRetryStrategy(RetryStrategy.DEFAULT_EXPONENTIAL)
+//                .setReplaceCurrent(false)
+//                .setConstraints(Constraint.ON_ANY_NETWORK)
+//                .build();
+//
+//        jobDispatcher.mustSchedule(job);
+//        Toast.makeText(this, "Job Scheduled", Toast.LENGTH_SHORT).show();
     }
 
     public void stopJob(View view) {
-        jobDispatcher.cancel(TAG);//for a specific tag
-        Toast.makeText(this, "Job Canceled", Toast.LENGTH_SHORT).show();
+//        jobDispatcher.cancel(TAG);//for a specific tag
+//        Toast.makeText(this, "Job Canceled", Toast.LENGTH_SHORT).show();
+
+
+        mWorkManager.cancelUniqueWork(IMAGE_MANIPULATION_WORK_NAME);
+    }
+
+    public static Activity getActivity(){
+        return mActivity;
     }
 }

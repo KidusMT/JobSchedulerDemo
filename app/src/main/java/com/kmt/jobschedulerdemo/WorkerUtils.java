@@ -1,11 +1,14 @@
 package com.kmt.jobschedulerdemo;
 
+import android.app.Activity;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
+import android.widget.Toast;
 
+import androidx.annotation.WorkerThread;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
@@ -60,6 +63,18 @@ final class WorkerUtils {
 
         // Show the notification
         NotificationManagerCompat.from(context).notify(Constants.NOTIFICATION_ID, builder.build());
+    }
+
+
+    @WorkerThread
+    static void toastText(final Activity activity) {
+
+        activity.runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(activity, "ToastWorker executing successfully.", Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 
     /**
